@@ -10,4 +10,7 @@ app.use(BodyParser.json());
 var users = require('./routes/users.js');
 app.use(users);
 
+var products = require('./routes/products.js');
+app.use(products);
+
 app.listen(3000);
