@@ -1,20 +1,13 @@
 var express = require('express');
 var app = express();
-var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/clboTest';
 
-app.get('/persons', function(req, res) {
+var BodyParser = require('body-parser'); // middle
+app.use(BodyParser.urlencoded({
+    extended: true
+}));
+app.use(BodyParser.json());
 
-    MongoClient.connect(url, function(err, db) {
-
-        var collection = db.collection('persons');
-
-        collection.find({}).toArray(function(err, data) {
-            
-            res.send(data);
-            db.close();
-        });
-    });
-});
+var users = require('./routes/users.js');
+app.use(users);
 
 app.listen(3000);
